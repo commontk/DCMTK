@@ -37,6 +37,7 @@
 
 #define INCLUDE_CSTDIO
 #define INCLUDE_CSETJMP
+#define INCLUDE_CSTRING
 #include "dcmtk/ofstd/ofstdinc.h"
 
 // These two macros are re-defined in the IJG header files.

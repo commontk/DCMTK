@@ -38,6 +38,7 @@
 #define INCLUDE_CSTDIO
 #define INCLUDE_CCTYPE
 #define INCLUDE_CSTDARG
+#define INCLUDE_CSTRING
 #include "dcmtk/ofstd/ofstdinc.h"
 #include "dcmtk/ofstd/ofcmdln.h"
 

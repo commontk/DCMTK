@@ -1,0 +1,42 @@
+
+This source code represents the changes to dcmtk (dcmtk.org)
+made by the commontk group (commontk.org).  These changes include
+bug fixes and features, plus a rewrite of the CMakeLists.txt
+files.
+
+
+--- Repository organization ---
+
+The master branch in github:commontk/DCMTK tracks the
+master branch of git.dcmtk.org.  There is also a 'patched' branch
+in commontk that includes the modifications used when
+building the CTK toolkit.
+
+
+--- Renaming from .cxx to .cc ---
+
+At one point the source file extension for C++ files had been changed
+from .cc (dcmtk convention) to .cxx (vtk convention).  The commands
+below were used to revert to .cc convention to better follow dcmtk.
+
+
+echo "renaming .cxx files to .cc ..."
+for f in `find . -iname \*.cxx`; do mv $f `dirname $f`/`basename $f .cxx`.cc; done;
+
+echo "changing text from .cxx to .cc in CMakeLists.txt and .cc ..."
+for f in `find . -name CMakeLists.txt -or -name \*.cc`; do sed -i .backup 's/cxx/cc/g' $f; done;
+
+echo "changing fracc back to fracxx (used in time code) ..."
+for f in `find . -name \*.cc`; do sed -i .backup 's/fracc/fracxx/g' $f; done;
+
+echo "changing /share/dicom/cvs-depot into /export/gitmirror/dcmtk-git/../dcmtk-cvs"
+for f in `find .; do sed -i .backup 's/\/share\/dicom\/cvs\-depot/\/export\/gitmirror\/dcmtk\-git\/\.\.\/dcmtk\-cvs/g' $f; done;
+
+echo "changing filename from File: file.cc file.cxx"
+find . -name \*.cc | xargs sed -i -r 's/\/\/ File\:    ([a-zA-Z0-9\-]+).cc/\/\/ File\:    \1.cxx/g'
+
+echo "removing backup files ..."
+find . -iname \*.backup -exec rm \{\} \;
+
+echo done
+

@@ -49,41 +49,41 @@ namespace log4cplus {
               *                 the <code>filename</code> parameter.
               */
              InternalLoggingEvent(const log4cplus::tstring& logger,
-                                  LogLevel ll,
-                                  const log4cplus::tstring& message,
+                                  LogLevel llvalue,
+                                  const log4cplus::tstring& messageValue,
                                   const char* filename,
-                                  int line)
-              : message(message),
+                                  int lineValue)
+              : message(messageValue),
                 loggerName(logger),
-                ll(ll),
+                ll(llvalue),
                 ndc(),
                 thread(),
                 timestamp(log4cplus::helpers::Time::gettimeofday()),
                 file( (  filename
                        ? LOG4CPLUS_C_STR_TO_TSTRING(filename)
                        : log4cplus::tstring()) ),
-                line(line),
+                line(lineValue),
                 threadCached(false),
                 ndcCached(false)
              {
              }
 
              InternalLoggingEvent(const log4cplus::tstring& logger,
-                                  LogLevel ll,
-                                  const log4cplus::tstring& ndc,
-                                  const log4cplus::tstring& message,
-                                  const log4cplus::tstring& thread,
+                                  LogLevel llValue,
+                                  const log4cplus::tstring& ndcValue,
+                                  const log4cplus::tstring& messageValue,
+                                  const log4cplus::tstring& threadValue,
                                   log4cplus::helpers::Time time,
-                                  const log4cplus::tstring& file,
-                                  int line)
-              : message(message),
+                                  const log4cplus::tstring& fileValue,
+                                  int lineValue)
+              : message(messageValue),
                 loggerName(logger),
-                ll(ll),
-                ndc(ndc),
-                thread(thread),
+                ll(llValue),
+                ndc(ndcValue),
+                thread(threadValue),
                 timestamp(time),
-                file(file),
-                line(line),
+                file(fileValue),
+                line(lineValue),
                 threadCached(true),
                 ndcCached(true)
              {

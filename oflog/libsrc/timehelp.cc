@@ -19,6 +19,7 @@
 //#include <cassert>
 #define INCLUDE_CASSERT
 #define INCLUDE_CTIME
+#define INCLUDE_CSTDLIB
 #include "dcmtk/ofstd/ofstdinc.h"
 
 //#include <iomanip>

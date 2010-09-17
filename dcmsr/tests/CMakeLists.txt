@@ -1,8 +1,10 @@
-# declare directories containing used libraries
-LINK_DIRECTORIES(${dcmsr_BINARY_DIR} ${ofstd_BINARY_DIR} ${oflog_BINARY_DIR} ${dcmdata_BINARY_DIR} ${ZLIB_LIBDIR} ${LIBXML_LIBDIR})
+FILE(GLOB TEST_FILES "*.cc")
 
-# declare executables
-ADD_EXECUTABLE(mkreport mkreport)
+FOREACH (filepath ${TEST_FILES})
+  FILE(RELATIVE_PATH filename ${DCMTK_SOURCE_DIR}/dcmsr/tests ${filepath})
+  GET_FILENAME_COMPONENT(basename ${filename} NAME_WE)  
+  ADD_EXECUTABLE(${basename} ${filename})
+  TARGET_LINK_LIBRARIES(${basename} dcmsr ${DCMTK_LIBRARIES})
+  ADD_TEST(dcmtk-ofstd-${basename} ${CXX_TEST_PATH}/${basename})
 
-# make sure executables are linked to the corresponding libraries
-TARGET_LINK_LIBRARIES(mkreport netapi32 wsock32 ofstd oflog dcmdata dcmsr ${ZLIB_LIBS} ${LIBXML_LIBS})
+ENDFOREACH (filepath ${TEST_FILES})

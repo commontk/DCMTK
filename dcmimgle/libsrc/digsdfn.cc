@@ -39,6 +39,7 @@
 #include "dcmtk/ofstd/ofstream.h"
 
 #define INCLUDE_CMATH
+#define INCLUDE_CSTRING
 #include "dcmtk/ofstd/ofstdinc.h"
 
 

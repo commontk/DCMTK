@@ -11,11 +11,15 @@
 // distribution in the LICENSE.APL file.
 //
 
+#define INCLUDE_CSTDLIB
 #include "dcmtk/oflog/hierarchy.h"
 #include "dcmtk/oflog/helpers/loglog.h"
 #include "dcmtk/oflog/spi/logimpl.h"
 #include "dcmtk/oflog/spi/rootlog.h"
-//#include <utility>
+
+
+
+// define INCLUDE_CSTDLIB to include <cstdlib> or <stdlib.h> if available#ifdef INCLUDE_CSTDLIB#ifdef USE_STD_CXX_INCLUDES#include <cstdlib>#elif defined(HAVE_STDLIB_H)/* workaround for bug in Borland C++ Builder */#ifndef __BORLANDC__BEGIN_EXTERN_C#endif#include <stdlib.h>#ifndef __BORLANDC__END_EXTERN_C#endif#endif#endif
 
 using namespace log4cplus;
 using namespace log4cplus::helpers;

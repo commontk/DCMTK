@@ -1,5 +1,11 @@
-# create library from source files
-ADD_LIBRARY(dcmnet assoc cond dcasccff dcasccfg dccfenmp dccfpcmp dccfprmp dccfrsmp dccftsmp dccfuidh dcmlayer dcmtrans dcompat dimcancl dimcmd dimdump dimecho dimfind dimget dimmove dimse dimstore diutil dul dulconst dulextra dulfsm dulparse dulpres extneg lst dfindscu dcuserid scu scp)
+SET(KIT dcmnet)
+SET(UKIT DCMNET)
 
-# declare installation files
-INSTALL_TARGETS(${INSTALL_LIBDIR} dcmnet)
+file(GLOB Kit_SRCS ../include/dcmtk/dcmnet/*.h *.cc)
+
+SET(Kit_EXTRA_SRCS)
+SET(KIT_LIBS dcmdata)
+SET(KIT_EXTRA_LIBS)
+
+# Include CMake code common to all dcmtk kits.
+INCLUDE(${DCMTK_SOURCE_DIR}/CMake/KitCommonBlock.cmake)

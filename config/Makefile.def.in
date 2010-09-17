@@ -51,8 +51,7 @@ DEBUG = @DEBUG@
 # Global definitions
 #
 
-GLOBALDEFS = @DEFS@
-# -DDCMTK_BUILD_DATE=\"YYYY-MM-DD\"
+GLOBALDEFS = @DEFS@ -DDCMTK_BUILD_DATE=\"2010-02-26\"
 
 #
 # ARCH defines special machine archtecture compiler settings

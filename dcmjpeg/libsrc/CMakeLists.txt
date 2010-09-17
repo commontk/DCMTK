@@ -1,8 +1,40 @@
-# declare additional include directories
-INCLUDE_DIRECTORIES(${dcmjpeg_SOURCE_DIR}/include ${ofstd_SOURCE_DIR}/include ${oflog_SOURCE_DIR}/include ${dcmdata_SOURCE_DIR}/include ${dcmimgle_SOURCE_DIR}/include ${dcmimage_SOURCE_DIR}/include ${dcmjpeg_SOURCE_DIR}/libijg8 ${dcmjpeg_SOURCE_DIR}/libijg12 ${dcmjpeg_SOURCE_DIR}/libijg16 ${ZLIB_INCDIR})
+SET(KIT dcmjpeg)
+SET(UKIT DCMJPEG)
 
-# create library from source files
-ADD_LIBRARY(dcmjpeg ddpiimpl dipijpeg djcodecd djcodece djcparam djdecbas djdecext djdeclol djdecode djdecpro djdecsps djdecsv1 djdijg12 djdijg8 djdijg16 djeijg12 djeijg8 djeijg16 djencbas djencext djenclol djencode djencpro djencsps djencsv1 djrplol djrploss djutils)
+SET(Kit_SRCS
+ddpiimpl.cc
+dipijpeg.cc
+djcodecd.cc
+djcodece.cc
+djcparam.cc
+djdecbas.cc
+djdecext.cc
+djdeclol.cc
+djdecode.cc
+djdecpro.cc
+djdecsps.cc
+djdecsv1.cc
+djdijg12.cc
+djdijg16.cc
+djdijg8.cc
+djeijg12.cc
+djeijg16.cc
+djeijg8.cc
+djencbas.cc
+djencext.cc
+djenclol.cc
+djencode.cc
+djencpro.cc
+djencsps.cc
+djencsv1.cc
+djrplol.cc
+djrploss.cc
+djutils.cc
+)
 
-# declare installation files
-INSTALL_TARGETS(${INSTALL_LIBDIR} dcmjpeg)
+SET(Kit_EXTRA_SRCS)
+SET(KIT_LIBS dcmimgle ijg8 ijg12 ijg16)
+SET(KIT_EXTRA_LIBS ${ZLIB_LIBS})
+
+# Include CMake code common to all dcmtk kits.
+INCLUDE(${DCMTK_SOURCE_DIR}/CMake/KitCommonBlock.cmake)

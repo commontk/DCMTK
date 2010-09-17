@@ -239,13 +239,13 @@ typedef unsigned int JDIMENSION;
  * by just saying "FAR *" where such a pointer is needed.  In a few places
  * explicit coding is needed; see uses of the NEED_FAR_POINTERS symbol.
  */
-
+#ifndef FAR
 #ifdef NEED_FAR_POINTERS
 #define FAR  far
 #else
 #define FAR
 #endif
-
+#endif
 
 /*
  * On a few systems, type boolean and/or its values FALSE, TRUE may appear

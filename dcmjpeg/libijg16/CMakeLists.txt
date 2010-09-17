@@ -1,5 +1,78 @@
-# create library from source files
-ADD_LIBRARY(ijg16 jaricom jcapimin jcapistd jcarith jccoefct jccolor jcdctmgr jcdiffct jchuff jcinit jclhuff jclossls jclossy jcmainct jcmarker jcmaster jcodec jcomapi jcparam jcphuff jcpred jcprepct jcsample jcscale jcshuff jctrans jdapimin jdapistd jdarith jdatadst jdatasrc jdcoefct jdcolor jddctmgr jddiffct jdhuff jdinput jdlhuff jdlossls jdlossy jdmainct jdmarker jdmaster jdmerge jdphuff jdpostct jdpred jdsample jdscale jdshuff jdtrans jerror jfdctflt jfdctfst jfdctint jidctflt jidctfst jidctint jidctred jmemmgr jmemnobs jquant1 jquant2 jutils)
+SET(KIT ijg16)
+SET(UKIT IJG16)
 
-# declare installation files
-INSTALL_TARGETS(${INSTALL_LIBDIR} ijg16)
+SET(Kit_SRCS
+jaricom.c
+jcapimin.c
+jcapistd.c
+jcarith.c
+jccoefct.c
+jccolor.c
+jcdctmgr.c
+jcdiffct.c
+jchuff.c
+jcinit.c
+jclhuff.c
+jclossls.c
+jclossy.c
+jcmainct.c
+jcmarker.c
+jcmaster.c
+jcodec.c
+jcomapi.c
+jcparam.c
+jcphuff.c
+jcpred.c
+jcprepct.c
+jcsample.c
+jcscale.c
+jcshuff.c
+jctrans.c
+jdapimin.c
+jdapistd.c
+jdarith.c
+jdatadst.c
+jdatasrc.c
+jdcoefct.c
+jdcolor.c
+jddctmgr.c
+jddiffct.c
+jdhuff.c
+jdinput.c
+jdlhuff.c
+jdlossls.c
+jdlossy.c
+jdmainct.c
+jdmarker.c
+jdmaster.c
+jdmerge.c
+jdphuff.c
+jdpostct.c
+jdpred.c
+jdsample.c
+jdscale.c
+jdshuff.c
+jdtrans.c
+jerror.c
+jfdctflt.c
+jfdctfst.c
+jfdctint.c
+jidctflt.c
+jidctfst.c
+jidctint.c
+jidctred.c
+jmemmgr.c
+jmemnobs.c
+jquant1.c
+jquant2.c
+jutils.c
+)
+
+SET(Kit_EXTRA_SRCS)
+SET(KIT_LIBS)
+SET(KIT_EXTRA_LIBS)
+
+# Include CMake code common to all dcmtk kits.
+INCLUDE(${DCMTK_SOURCE_DIR}/CMake/KitCommonBlock.cmake)
+
+

@@ -57,7 +57,7 @@ END_EXTERN_C
 
 #include "dcmtk/ofstd/oftime.h"
 #include "dcmtk/ofstd/ofstd.h"
-
+#include "dcmtk/ofstd/ofstream.h"
 
 /*------------------*
  *  implementation  *

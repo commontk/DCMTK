@@ -33,6 +33,7 @@
 
 #include "dcmtk/config/osconfig.h"
 
+#define INCLUDE_CSTRING
 #include "dcmtk/dcmimgle/diciefn.h"
 #include "dcmtk/ofstd/ofstream.h"
 

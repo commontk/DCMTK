@@ -18,6 +18,7 @@
 //#include <stdexcept>
 //#include <errno.h>
 #define INCLUDE_CERRNO
+#define INCLUDE_CSTDLIB
 
 #include "dcmtk/ofstd/ofstdinc.h"
 

@@ -1,5 +1,28 @@
-# create library from source files
-ADD_LIBRARY(dcmdsig dcsignat siautopr sibrsapr sicert sicertvf sicreapr sidsa simaccon simd5 sinullpr siprivat siripemd sirsa sisha1 sisprof sitypes)
+SET(KIT dcmdsig)
+SET(UKIT DCMDSIG)
 
-# declare installation files
-INSTALL_TARGETS(${INSTALL_LIBDIR} dcmdsig)
+SET(Kit_SRCS
+dcsignat.cc 
+sicert.cc   
+sidsa.cc    
+sinullpr.cc 
+sirsa.cc    
+sitypes.cc
+siautopr.cc 
+sicertvf.cc 
+simaccon.cc 
+siprivat.cc 
+sisha1.cc
+sibrsapr.cc 
+sicreapr.cc 
+simd5.cc    
+siripemd.cc 
+sisprof.cc
+)
+
+SET(Kit_EXTRA_SRCS)
+SET(KIT_LIBS dcmdata)
+SET(KIT_EXTRA_LIBS)
+
+# Include CMake code common to all dcmtk kits.
+INCLUDE(${DCMTK_SOURCE_DIR}/CMake/KitCommonBlock.cmake)

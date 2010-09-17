@@ -35,6 +35,7 @@
 #include "dcmtk/dcmdata/dctagkey.h"
 
 #define INCLUDE_CSTDIO
+#define INCLUDE_CSTRING
 #include "dcmtk/ofstd/ofstdinc.h"
 
 /*

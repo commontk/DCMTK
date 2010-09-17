@@ -32,7 +32,7 @@
 
 
 #include "dcmtk/config/osconfig.h"
-
+#define INCLUDE_CSTRING
 #include "dcmtk/ofstd/ofconapp.h"
 #include "dcmtk/ofstd/ofstring.h"
 

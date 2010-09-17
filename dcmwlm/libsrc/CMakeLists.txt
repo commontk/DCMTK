@@ -1,5 +1,16 @@
-# create library from source files
-ADD_LIBRARY(dcmwlm wlds wldsfs wlfsim wlmactmg)
+SET(KIT dcmwlm)
+SET(UKIT DCMWLM)
 
-# declare installation files
-INSTALL_TARGETS(${INSTALL_LIBDIR} dcmwlm)
+SET(Kit_SRCS
+wlfsim.cc 
+wlds.cc 
+wldsfs.cc 
+wlmactmg.cc
+)
+
+SET(Kit_EXTRA_SRCS)
+SET(KIT_LIBS dcmnet)
+SET(KIT_EXTRA_LIBS)
+
+# Include CMake code common to all dcmtk kits.
+INCLUDE(${DCMTK_SOURCE_DIR}/CMake/KitCommonBlock.cmake)

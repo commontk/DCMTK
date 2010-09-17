@@ -33,6 +33,7 @@
  */
 
 #include "dcmtk/config/osconfig.h"
+#define INCLUDE_CSTRING
 #include "dcmtk/dcmnet/dccfuidh.h"
 
 #include "dcmtk/dcmdata/dcuid.h"    /* for dcmFindUIDFromName() */ 

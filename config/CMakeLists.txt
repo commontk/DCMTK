@@ -1,5 +1,0 @@
-# declare project
-PROJECT(config)
-
-# recurse into subdirectories
-SUBDIRS(include/dcmtk/config docs)

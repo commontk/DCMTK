@@ -1,8 +1,15 @@
 # declare project
 PROJECT(dcmsr)
 
-# declare include directories which hold for all subdirectories
-INCLUDE_DIRECTORIES(${dcmsr_SOURCE_DIR}/include ${ofstd_SOURCE_DIR}/include ${oflog_SOURCE_DIR}/include ${dcmdata_SOURCE_DIR}/include ${ZLIB_INCDIR} ${LIBXML_INCDIR})
-
 # recurse into subdirectories
-SUBDIRS(libsrc apps tests include/dcmtk/dcmsr data)
+ADD_SUBDIRECTORY(libsrc)
+
+# build the apps
+IF(DCMTK_BUILD_APPS)
+  ADD_SUBDIRECTORY(apps)
+ENDIF(DCMTK_BUILD_APPS)
+
+# build the vtkdcmtk tests
+IF(BUILD_TESTING)
+  ADD_SUBDIRECTORY(tests)
+ENDIF(BUILD_TESTING)
