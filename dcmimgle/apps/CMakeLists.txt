@@ -5,7 +5,7 @@ ENDFOREACH(PROGRAM)
 
 # make sure executables are linked to the corresponding libraries
 FOREACH(PROGRAM dcmdspfn dcod2lum dconvlum)
-  TARGET_LINK_LIBRARIES(${PROGRAM} ofstd dcmimgle ${ZLIB_LIBS} ${DCMTK_LIBRARIES})
+  TARGET_LINK_LIBRARIES(${PROGRAM} ofstd dcmimgle ${LIBXML_LIBS} ${OPENSSL_LIBS} ${ZLIB_LIBS} ${DCMTK_LIBRARIES})
 ENDFOREACH(PROGRAM)
 TARGET_LINK_LIBRARIES(dcmdspfn dcmdata)
 

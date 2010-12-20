@@ -67,19 +67,21 @@ IF(NOT DCMTK_IS_SUBPACKAGE)
   ENDIF(BUILD_TESTING)
 ENDIF(NOT DCMTK_IS_SUBPACKAGE)
 
-# a cmake file, similar to FindDCMTK.cmake, that can be used in vtkAtamaiIO.
-INCLUDE(${DCMTK_SOURCE_DIR}/CMake/UseDCMTK.cmake)
-
 # dcmtk build options
-OPTION(BUILD_SHARED_LIBS "Build shared libraries." OFF)
-OPTION(DCMTK_WITH_TIFF "Support for TIFF" OFF)
-OPTION(DCMTK_WITH_PNG "Support for PNG" OFF)
-OPTION(DCMTK_WITH_XML "Support for XML" OFF) # libxml2 is required
-OPTION(DCMTK_WITH_ZLIB "Support for ZLIB" OFF) # zlib-1.2.3 is required
-OPTION(DCMTK_WITH_OPENSSL "Support for OPENSSL" OFF) # openssl-0.9.8a is required
+OPTION(BUILD_SHARED_LIBS "Build shared libraries." ON)
+OPTION(DCMTK_WITH_TIFF "Support for TIFF" ON)
+OPTION(DCMTK_WITH_PNG "Support for PNG" ON)
+OPTION(DCMTK_WITH_XML "Support for XML" ON) # libxml2 is required
+OPTION(DCMTK_WITH_ZLIB "Support for ZLIB" ON) # zlib-1.2.3 is required
+OPTION(DCMTK_WITH_OPENSSL "Support for OPENSSL" ON) # openssl-0.9.8a is required
 OPTION(DCMTK_WITH_PRIVATE_TAGS "Support for DICOM private tags" ON)
 OPTION(DCMTK_BUILD_APPS "Build the dcmtk apps" OFF)
 OPTION(DCMTK_WITH_THREADS "Support for multi-threading" ON)
+# add option to build experimental before UseDCMTK is included
+OPTION(DCMTK_BUILD_EXPERIMENTAL "Build experimental libraries" ON)
+# a cmake file, similar to FindDCMTK.cmake, that can be used in vtkAtamaiIO.
+INCLUDE(${DCMTK_SOURCE_DIR}/CMake/UseDCMTK.cmake)
+
 
 # Find TIFF
 IF(DCMTK_WITH_TIFF)
@@ -108,17 +110,12 @@ IF(DCMTK_WITH_ZLIB)
   SET(ZLIB_LIBS ${ZLIB_LIBRARY})
 ENDIF(DCMTK_WITH_ZLIB)
 
-#IF(DCMTK_WITH_OPENSSL)
-#  FIND_PACKAGE(OPENSSL)
-#  INCLUDE_DIRECTORIES(${OPENSSL_INCLUDE_DIR})
-#  SET(OPENSSL_LIBS ${OPENSSL_LIBRARY})
-#ENDIF(DCMTK_WITH_OPENSSL)
+IF(DCMTK_WITH_OPENSSL)
+  FIND_PACKAGE(OpenSSL)
+  INCLUDE_DIRECTORIES(${OPENSSL_INCLUDE_DIR})
+  SET(OPENSSL_LIBS ${OPENSSL_CRYPTO_LIBRARIES} ${OPENSSL_SSL_LIBRARIES})
+ENDIF(DCMTK_WITH_OPENSSL)
 
-
-# TODO:
-# libxml2
-# zlib-1.2.3
-# openssl-0.9.8a
 
 # settings for Apple
 IF(APPLE)
