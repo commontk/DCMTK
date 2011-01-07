@@ -26,6 +26,15 @@ SET(DCMTK_PACKAGE_VERSION_SUFFIX "")
 #SET(DCMTK_PACKAGE_STRING "dcmtk 3.6.0")
 #SET(DCMTK_PACKAGE_BUGREPORT "dicom-bugs@offis.de")
 
+## UID root for DCMTK, registered for OFFIS with DIN in Germany
+## from dcuid.h OFFIS_UID_ROOT                          "1.2.276.0.7230010.3"
+SET(DCMTK_SITE_UID_ROOT "1.2.276.0.7230010.3" CACHE STRING "Each site should define its own SITE_UID_ROOT")
+MARK_AS_ADVANCED(DCMTK_SITE_UID_ROOT)
+IF(NOT ${DCMTK_SITE_UID_ROOT} STREQUAL "1.2.276.0.7230010.3")
+  ## Add compile define for user defined SITE_UID_ROOT.
+  ADD_DEFINITIONS(-DSITE_UID_ROOT=${DCMTK_SITE_UID_ROOT})
+ENDIF()
+
 # DCMTK build options
 OPTION(DCMTK_WITH_TIFF "Configure DCMTK with support for TIFF" ON)
 OPTION(DCMTK_WITH_PNG "Configure DCMTK with support for PNG" ON)
