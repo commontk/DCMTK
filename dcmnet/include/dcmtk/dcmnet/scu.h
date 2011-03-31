@@ -139,6 +139,11 @@ public:
    */
   virtual OFCondition initNetwork();
 
+  /** Disconnect network, i.e. free the socket
+   *  @return EC_Normal if disconnect was successful, otherwise error code
+   */
+  virtual OFCondition dropNetwork();
+
   /** Negotiate association by using presentation contexts and parameters
    *  as defined by earlier function calls.
    *  @return EC_Normal if negotiation was successful, otherwise error code

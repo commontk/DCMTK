@@ -214,6 +214,10 @@ OFCondition DcmSCU::initNetwork()
   return cond;
 }
 
+OFCondition DcmSCU::dropNetwork()
+{
+  return ( ASC_dropNetwork(&m_net) );
+}
 
 
 OFCondition DcmSCU::negotiateAssociation()
