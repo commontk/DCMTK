@@ -31,6 +31,10 @@ SET(CXX_TEST_PATH ${EXECUTABLE_OUTPUT_PATH})
 # On Visual Studio 8 MS deprecated C. This removes all 1.276E1265 security
 # warnings
 IF(WIN32)
+  IF(MINGW)
+    SET(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -Wl,--enable-auto-import")
+  ENDIF()
+
   IF(NOT BORLAND)
     IF(NOT CYGWIN)
       IF(NOT MINGW)

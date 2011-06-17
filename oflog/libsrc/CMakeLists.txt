@@ -47,6 +47,10 @@ ENDIF(WIN32)
 
 
 SET(KIT_LIBS oflog)
+IF(WIN32 AND NOT CYGWIN)
+  LIST(APPEND KIT_LIBS wsock32)
+ENDIF(WIN32 AND NOT CYGWIN)
+
 SET(Kit_EXTRA_SRCS)
 
 # Include CMake code common to all dcmtk kits.
