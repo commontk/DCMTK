@@ -1,19 +1,15 @@
 /*
  *
- *  Copyright (C) 1996-2005, OFFIS
+ *  Copyright (C) 1996-2010, OFFIS e.V.
+ *  All rights reserved.  See COPYRIGHT file for details.
  *
  *  This software and supporting documentation were developed by
  *
- *    Kuratorium OFFIS e.V.
- *    Healthcare Information and Communication Systems
+ *    OFFIS e.V.
+ *    R&D Division Health
  *    Escherweg 2
  *    D-26121 Oldenburg, Germany
  *
- *  THIS SOFTWARE IS MADE AVAILABLE,  AS IS,  AND OFFIS MAKES NO  WARRANTY
- *  REGARDING  THE  SOFTWARE,  ITS  PERFORMANCE,  ITS  MERCHANTABILITY  OR
- *  FITNESS FOR ANY PARTICULAR USE, FREEDOM FROM ANY COMPUTER DISEASES  OR
- *  ITS CONFORMITY TO ANY SPECIFICATION. THE ENTIRE RISK AS TO QUALITY AND
- *  PERFORMANCE OF THE SOFTWARE IS WITH THE USER.
  *
  *  Module:  dcmimgle
  *
@@ -21,9 +17,9 @@
  *
  *  Purpose: DicomPixelRepresentationTemplate (Header)
  *
- *  Last Update:      $Author: meichel $
- *  Update Date:      $Date: 2005-12-09 14:48:35 $
- *  CVS/RCS Revision: $Revision: 1.15 $
+ *  Last Update:      $Author: joergr $
+ *  Update Date:      $Date: 2010-12-06 10:07:42 $
+ *  CVS/RCS Revision: $Revision: 1.17 $
  *  Status:           $State: Exp $
  *
  *  CVS/RCS Log at end of file
@@ -57,6 +53,9 @@ class DiPixelRepresentationTemplate
 {
 
  public:
+
+    /// default constructor
+    DiPixelRepresentationTemplate() {}
 
     /// destructor
     virtual ~DiPixelRepresentationTemplate() {}
@@ -171,7 +170,13 @@ inline int DiPixelRepresentationTemplate<Sint32>::isSigned() const
  *
  * CVS/RCS Log:
  * $Log: dipxrept.h,v $
- * Revision 1.15  2005-12-09 14:48:35  meichel
+ * Revision 1.17  2010-12-06 10:07:42  joergr
+ * Added explicit default constructor to keep Intel Compiler 11.1 quiet.
+ *
+ * Revision 1.16  2010-10-14 13:16:27  joergr
+ * Updated copyright header. Added reference to COPYRIGHT file.
+ *
+ * Revision 1.15  2005/12/09 14:48:35  meichel
  * Added missing virtual destructors
  *
  * Revision 1.14  2005/12/08 16:48:06  meichel
