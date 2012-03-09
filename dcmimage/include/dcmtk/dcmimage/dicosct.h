@@ -89,7 +89,7 @@ class DiColorScaleTemplate
         if ((pixel != NULL) && (pixel->getCount() > 0))
         {
             if (pixel->getCount() == OFstatic_cast(unsigned long, columns) * OFstatic_cast(unsigned long, rows) * frames)
-                scale(OFstatic_cast(const T **, OFconst_cast(void *, pixel->getData())), interpolate);
+                this->scale(OFstatic_cast(const T **, OFconst_cast(void *, pixel->getData())), interpolate);
             else {
                 DCMIMAGE_WARN("could not scale image ... corrupted data");
             }
@@ -113,8 +113,8 @@ class DiColorScaleTemplate
     inline void scale(const T *pixel[3],
                       const int interpolate)
     {
-        if (Init(pixel))
-            scaleData(pixel, this->Data, interpolate);
+        if (this->Init(pixel))
+            this->scaleData(pixel, this->Data, interpolate);
     }
 };
 

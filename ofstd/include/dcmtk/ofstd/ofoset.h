@@ -151,7 +151,7 @@ template <class T> class OFOrderedSet : public OFSet<T>
       {
         // if size equals num, we need more space
         if( this->size == this->num )
-          Resize( this->size * 2 );
+          this->Resize( this->size * 2 );
 
         // copy item
         T *newItem = new T( item );
@@ -194,7 +194,7 @@ template <class T> class OFOrderedSet : public OFSet<T>
         {
           // if size equals num, we need more space
           if( this->size == this->num )
-            Resize( this->size * 2 );
+            this->Resize( this->size * 2 );
 
           // copy item
           T *newItem = new T( item );

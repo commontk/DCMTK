@@ -75,7 +75,7 @@ class DiYBRPart422PixelTemplate
                 DCMIMAGE_ERROR("invalid value for 'PlanarConfiguration' (" << this->PlanarConfiguration << ")");
             }
             else
-                convert(OFstatic_cast(const T1 *, pixel->getData()) + pixel->getPixelStart(), bits);
+                this->convert(OFstatic_cast(const T1 *, pixel->getData()) + pixel->getPixelStart(), bits);
         }
     }
 
@@ -96,7 +96,7 @@ class DiYBRPart422PixelTemplate
     void convert(const T1 *pixel,
                  const int bits)
     {
-        if (Init(pixel))
+        if (this->Init(pixel))
         {
             register T2 *r = this->Data[0];
             register T2 *g = this->Data[1];

@@ -70,7 +70,7 @@ class DiHSVPixelTemplate
       : DiColorPixelTemplate<T2>(docu, pixel, 3, status)
     {
         if ((pixel != NULL) && (this->Count > 0) && (status == EIS_Normal))
-            convert(OFstatic_cast(const T1 *, pixel->getData()) + pixel->getPixelStart(), planeSize, bits);
+            this->convert(OFstatic_cast(const T1 *, pixel->getData()) + pixel->getPixelStart(), planeSize, bits);
     }
 
     /** destructor
@@ -92,7 +92,7 @@ class DiHSVPixelTemplate
                  const unsigned long planeSize,
                  const int bits)
     {
-        if (Init(pixel))
+        if (this->Init(pixel))
         {
             register T2 *r = this->Data[0];
             register T2 *g = this->Data[1];

@@ -76,7 +76,7 @@ class DiPalettePixelTemplate
                 DCMIMAGE_ERROR("invalid value for 'PlanarConfiguration' (" << this->PlanarConfiguration << ")");
             }
             else
-                convert(OFstatic_cast(const T1 *, pixel->getData()) + pixel->getPixelStart(), palette);
+                this->convert(OFstatic_cast(const T1 *, pixel->getData()) + pixel->getPixelStart(), palette);
         }
     }
 
@@ -97,7 +97,7 @@ class DiPalettePixelTemplate
     void convert(const T1 *pixel,
                  DiLookupTable *palette[3])
     {                                                                // can be optimized if necessary !
-        if (Init(pixel))
+        if (this->Init(pixel))
         {
             register const T1 *p = pixel;
             register T2 value = 0;

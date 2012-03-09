@@ -129,13 +129,13 @@ class DiFlipTemplate
         if ((src != NULL) && (dest != NULL))
         {
             if (horz && vert)
-                flipHorzVert(src, dest);
+                this->flipHorzVert(src, dest);
             else if (horz)
-                flipHorz(src, dest);
+                this->flipHorz(src, dest);
             else if (vert)
-                flipVert(src, dest);
+                this->flipVert(src, dest);
             else
-                copyPixel(src, dest);
+                this->copyPixel(src, dest);
         }
     }
 

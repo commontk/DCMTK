@@ -92,7 +92,7 @@ class DiMonoScaleTemplate
         {
             if (pixel->getCount() == OFstatic_cast(unsigned long, columns) * OFstatic_cast(unsigned long, rows) * frames)
             {
-                scale(OFstatic_cast(const T *, pixel->getData()), pixel->getBits(), interpolate, pvalue);
+                this->scale(OFstatic_cast(const T *, pixel->getData()), pixel->getBits(), interpolate, pvalue);
                 this->determineMinMax();
             } else {
                 DCMIMGLE_WARN("could not scale image ... corrupted data");
@@ -128,7 +128,7 @@ class DiMonoScaleTemplate
             {
                 const T value = OFstatic_cast(T, OFstatic_cast(double, DicomImageClass::maxval(bits)) *
                     OFstatic_cast(double, pvalue) / OFstatic_cast(double, DicomImageClass::maxval(WIDTH_OF_PVALUES)));
-                scaleData(&pixel, &this->Data, interpolate, value);
+                this->scaleData(&pixel, &this->Data, interpolate, value);
              }
         }
     }

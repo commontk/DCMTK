@@ -69,7 +69,7 @@ class DiRGBPixelTemplate
       : DiColorPixelTemplate<T2>(docu, pixel, 3, status)
     {
         if ((pixel != NULL) && (this->Count > 0) && (status == EIS_Normal))
-            convert(OFstatic_cast(const T1 *, pixel->getData()) + pixel->getPixelStart(), planeSize, bits);
+            this->convert(OFstatic_cast(const T1 *, pixel->getData()) + pixel->getPixelStart(), planeSize, bits);
     }
 
     /** destructor
@@ -91,7 +91,7 @@ class DiRGBPixelTemplate
                  const unsigned long planeSize,
                  const int bits)
     {
-        if (Init(pixel))
+        if (this->Init(pixel))
         {
             // use the number of input pixels derived from the length of the 'PixelData'
             // attribute), but not more than the size of the intermediate buffer

@@ -72,7 +72,7 @@ class DiYBRPixelTemplate
       : DiColorPixelTemplate<T2>(docu, pixel, 3, status)
     {
         if ((pixel != NULL) && (this->Count > 0) && (status == EIS_Normal))
-            convert(OFstatic_cast(const T1 *, pixel->getData()) + pixel->getPixelStart(), planeSize, bits, rgb);
+            this->convert(OFstatic_cast(const T1 *, pixel->getData()) + pixel->getPixelStart(), planeSize, bits, rgb);
     }
 
     /** destructor
@@ -96,7 +96,7 @@ class DiYBRPixelTemplate
                  const int bits,
                  const OFBool rgb)
     {
-        if (Init(pixel))
+        if (this->Init(pixel))
         {
             const T1 offset = OFstatic_cast(T1, DicomImageClass::maxval(bits - 1));
             // use the number of input pixels derived from the length of the 'PixelData'

@@ -69,7 +69,7 @@ class DiColorCopyTemplate
         if ((pixel != NULL) && (pixel->getCount() > 0))
         {
             if ((pixel->getCount() > fstart * fsize) && (pixel->getCount() >= (fstart + fcount) * fsize))
-                copy(OFstatic_cast(const T **, OFconst_cast(void *, pixel->getData())), fstart * fsize);
+                this->copy(OFstatic_cast(const T **, OFconst_cast(void *, pixel->getData())), fstart * fsize);
         }
     }
 
@@ -90,7 +90,7 @@ class DiColorCopyTemplate
     inline void copy(const T *pixel[3],
                      const unsigned long offset)
     {
-        if (Init(pixel))
+        if (this->Init(pixel))
         {
             for (int j = 0; j < 3; j++)
                 OFBitmanipTemplate<T>::copyMem(pixel[j] + offset, this->Data[j], this->getCount());

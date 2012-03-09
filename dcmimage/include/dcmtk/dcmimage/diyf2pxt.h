@@ -77,7 +77,7 @@ class DiYBR422PixelTemplate
                 DCMIMAGE_ERROR("invalid value for 'PlanarConfiguration' (" << this->PlanarConfiguration << ")");
             }
             else
-                convert(OFstatic_cast(const T1 *, pixel->getData()) + pixel->getPixelStart(), bits, rgb);
+                this->convert(OFstatic_cast(const T1 *, pixel->getData()) + pixel->getPixelStart(), bits, rgb);
         }
     }
 
@@ -100,7 +100,7 @@ class DiYBR422PixelTemplate
                  const int bits,
                  const OFBool rgb)
     {
-        if (Init(pixel))
+        if (this->Init(pixel))
         {
             const T1 offset = OFstatic_cast(T1, DicomImageClass::maxval(bits - 1));
             register unsigned long i;

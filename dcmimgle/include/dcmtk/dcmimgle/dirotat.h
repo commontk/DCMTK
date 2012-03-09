@@ -131,13 +131,13 @@ class DiRotateTemplate
                            const int degree)
     {
         if (degree == 90)
-            rotateRight(src, dest);
+            this->rotateRight(src, dest);
         else if (degree == 180)
-            rotateTopDown(src, dest);
+            this->rotateTopDown(src, dest);
         else if (degree == 270)
-            rotateLeft(src, dest);
+            this->rotateLeft(src, dest);
         else
-            copyPixel(src, dest);
+            this->copyPixel(src, dest);
     }
 
 
