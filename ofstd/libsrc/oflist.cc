@@ -43,8 +43,11 @@ OFListBase::OFListBase()
 OFListBase::~OFListBase()
 {
     base_clear();
-    delete afterLast;
-    afterLast = NULL;
+    if (afterLast)
+        {
+        delete afterLast;
+        afterLast = NULL;
+        }
 }
 
 OFListLinkBase * OFListBase::base_insert(OFListLinkBase * pos,
