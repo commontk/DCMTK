@@ -13,6 +13,14 @@ IF(CMAKE_BACKWARDS_COMPATIBILITY GREATER 2.8.10)
   SET(CMAKE_BACKWARDS_COMPATIBILITY 2.8.10 CACHE STRING "Latest version of CMake when this project was released." FORCE)
 ENDIF(CMAKE_BACKWARDS_COMPATIBILITY GREATER 2.8.10)
 
+# make sure CMAKE_BUILD_TYPE has a value. default to release
+IF(NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
+  MESSAGE(STATUS "Setting build type to 'Release' as none was specified.")
+  SET(CMAKE_BUILD_TYPE Release CACHE STRING "Choose the type of build." FORCE)
+  # Set the possible values of build type for cmake-gui
+  SET_PROPERTY(CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS "Debug" "Release" "MinSizeRel" "RelWithDebInfo")
+ENDIF(NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
+
 # Basic version information
 # (Starting with version 3.5.5, an odd number at the last position indicates
 #  a development snapshot and an even number indicates an official release.)
