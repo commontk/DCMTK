@@ -93,14 +93,30 @@ ENABLE_TESTING()
 SET(DCMTK_INSTALL_BINDIR "bin" CACHE STRING "Installation sub-directory for binary executables.")
 SET(DCMTK_INSTALL_INCDIR "include" CACHE STRING "Installation sub-directory for header files.")
 SET(DCMTK_INSTALL_LIBDIR "lib" CACHE STRING "Installation sub-directory for object code libraries.")
+IF(UNIX)
+  SET(DCMTK_INSTALL_CMKDIR "lib/cmake/dcmtk" CACHE STRING "Installation sub-directory for CMake files.")
+ELSEIF(WIN32)
+  SET(DCMTK_INSTALL_CMKDIR "cmake" CACHE STRING "Installation sub-directory for CMake files.")
+ENDIF(UNIX)
 SET(DCMTK_INSTALL_ETCDIR "etc/dcmtk" CACHE STRING "Installation sub-directory for configuration files.")
 SET(DCMTK_INSTALL_DATDIR "share/dcmtk" CACHE STRING "Installation sub-directory for sample files and the like.")
 SET(DCMTK_INSTALL_DOCDIR "share/doc/dcmtk" CACHE STRING "Installation sub-directory for general documentation.")
 SET(DCMTK_INSTALL_HTMDIR "share/doc/dcmtk/html" CACHE STRING "Installation sub-directory for HTML documentation.")
 SET(DCMTK_INSTALL_MANDIR "share/man" CACHE STRING "Installation sub-directory for man pages.")
 
-MARK_AS_ADVANCED(DCMTK_INSTALL_BINDIR DCMTK_INSTALL_INCDIR DCMTK_INSTALL_LIBDIR DCMTK_INSTALL_ETCDIR
-                 DCMTK_INSTALL_DATDIR DCMTK_INSTALL_DOCDIR DCMTK_INSTALL_HTMDIR DCMTK_INSTALL_MANDIR)
+MARK_AS_ADVANCED(DCMTK_INSTALL_BINDIR DCMTK_INSTALL_INCDIR DCMTK_INSTALL_LIBDIR DCMTK_INSTALL_CMKDIR
+                 DCMTK_INSTALL_ETCDIR DCMTK_INSTALL_DATDIR DCMTK_INSTALL_DOCDIR DCMTK_INSTALL_HTMDIR
+                 DCMTK_INSTALL_MANDIR)
+
+#-----------------------------------------------------------------------------
+# Build directories
+#-----------------------------------------------------------------------------
+SET(DCMTK_BUILD_CMKDIR ${CMAKE_BINARY_DIR})
+
+#-----------------------------------------------------------------------------
+# Clear DCMTKTargets.cmake
+#-----------------------------------------------------------------------------
+file(WRITE ${DCMTK_BUILD_CMKDIR}/DCMTKTargets.cmake "")
 
 #-----------------------------------------------------------------------------
 # Platform-independent settings
@@ -130,6 +146,11 @@ ADD_DEFINITIONS("-DDCMTK_BUILD_IN_PROGRESS")
 SET(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib")
 SET(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib")
 SET(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin")
+
+INCLUDE(CMake/CheckCMakeCommandExists.cmake)
+INCLUDE(CMakePackageConfigHelpers OPTIONAL)
+check_cmake_command_exists("configure_package_config_file")
+check_cmake_command_exists("write_basic_package_version_file")
 
 #-----------------------------------------------------------------------------
 # Platform-specific settings
