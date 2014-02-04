@@ -35,6 +35,8 @@
 
 #ifdef WITH_OPENSSL
 
+#include <string.h>
+
 #include "dcmtk/dcmsign/siprivat.h"
 #include "dcmtk/dcmsign/sirsa.h"
 #include "dcmtk/dcmsign/sidsa.h"

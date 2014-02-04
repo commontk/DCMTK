@@ -6,7 +6,7 @@ ADD_EXECUTABLE(dcmpschk dcmpschk)
 
 # make sure executables are linked to the corresponding libraries
 FOREACH(PROGRAM dcmmkcrv dcmmklut dcmp2pgm dcmprscp dcmprscu dcmpsmk dcmpschk dcmpsprt dcmpsrcv dcmpssnd)
-  TARGET_LINK_LIBRARIES(${PROGRAM} dcmpstat ${ZLIB_LIBS})
+  TARGET_LINK_LIBRARIES(${PROGRAM} dcmpstat dcmdsig dcmtls ${OPENSSL_LIBS} ${LIBXML_LIBS} ${ZLIB_LIBS})
   IF(WIN32)
     TARGET_LINK_LIBRARIES(${PROGRAM}  ws2_32 netapi32 wsock32)
   ENDIF(WIN32)
