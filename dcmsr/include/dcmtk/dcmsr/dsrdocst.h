@@ -39,6 +39,13 @@
 
 class DSRIODConstraintChecker;
 
+/*--------------------------*
+ *  template instantiation  *
+ *--------------------------*/
+
+// This is required to help older compiler (i.e clang 3.1 on MacOSX)
+
+template class DSRTree<DSRDocumentTreeNode>;
 
 /*---------------------*
  *  class declaration  *
