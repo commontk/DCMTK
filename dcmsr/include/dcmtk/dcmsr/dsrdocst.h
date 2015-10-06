@@ -44,8 +44,9 @@ class DSRIODConstraintChecker;
  *--------------------------*/
 
 // This is required to help older compiler (i.e clang 3.1 on MacOSX)
-
+#if defined(__clang__)
 template class DSRTree<DSRDocumentTreeNode>;
+#endif
 
 /*---------------------*
  *  class declaration  *
