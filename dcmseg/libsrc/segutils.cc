@@ -53,53 +53,48 @@ DcmIODTypes::Frame* DcmSegUtils::packBinaryFrame(Uint8* pixelData,
     delete frame;
     return NULL;
   }
-  memset(frame->pixData, 0, sizeof(Uint8)*frame->length);
+  memset(frame->pixData, 0, frame->length);
 
   size_t bytePos = 0;
   for (size_t count = 0; count < numPixels; count++)
   {
     // Compute byte position
     bytePos = count / 8;
-    frame->pixData[bytePos] |= (pixelData[count] != 0) /* value to set */ << (count % 8 /* bit position (0-7) within byte */);
+    frame->pixData[bytePos] |= (pixelData[count] != 0) /* value to set */ << (7-(count % 8) /* bit position (0-7) within byte */);
   }
   return frame;
 }
 
 
 DcmIODTypes::Frame* DcmSegUtils::unpackBinaryFrame(const DcmIODTypes::Frame* frame,
-                                                   const Uint16 rows,
-                                                   const Uint16 cols)
+                                                   Uint16 rows,
+                                                   Uint16 cols)
 {
   // Sanity checking
-  if ( (frame->length == 0) || (frame->pixData == NULL) || (rows == 0) || (cols == 0))
+  if ( (frame == NULL) || (rows == 0) || (cols == 0) )
   {
-    DCMSEG_ERROR("Cannot unpack binary frame, invalid input data: frame length and data, as well as rows and columnst cannot be 0");
-    return NULL;
-  }
-  const Uint32 numPixels = rows*cols;
-  if ( getBytesForBinaryFrame(numPixels) > frame->length)
-  {
-    DCMSEG_ERROR("Cannot unpack binary frame, not enough input data (require " << numPixels / 8 << " but only got " << frame->length << " bytes)");
+    DCMSEG_ERROR("Cannot unpack binary frame, invalid input data");
     return NULL;
   }
 
   // Create result frame in memory
+  size_t numBits = rows * cols;
   DcmIODTypes::Frame* result = new DcmIODTypes::Frame();
   if (result)
   {
-    result->pixData = new Uint8[numPixels];
-    result->length = numPixels;
+    result->pixData = new Uint8[numBits];
+    result->length = numBits;
   }
   if ( !result || !(result->pixData) )
   {
     DCMSEG_ERROR("Cannot unpack binary frame, memory exhausted");
     return NULL;
   }
-  memset(result->pixData, 0, sizeof(Uint8)*result->length);
+  memset(result->pixData, 0, result->length);
 
   // Transform and copy from packed frame to unpacked result frame
   size_t bytePos = 0;
-  for (size_t count = 0; count < numPixels; count++)
+  for (size_t count = 0; count < numBits; count++)
   {
     // Compute byte position
     bytePos = count / 8;
@@ -127,4 +122,75 @@ size_t DcmSegUtils::getBytesForBinaryFrame(const size_t& numPixels)
   // add one byte if we have a remainder
   if (remainder > 0) bytesRequired++;
   return bytesRequired;
+}
+
+
+void DcmSegUtils::shiftRight(Uint8* buf,
+                             size_t bufLen,
+                             Uint8 numBits)
+{
+  if (numBits > 7)
+  {
+    DCMSEG_ERROR("Invalid input data: shiftRight() can only shift 0-7 bits");
+    return;
+  }
+  Uint8 carryOver = 0;
+  for (size_t x = 0; x < bufLen; x++)
+  {
+    // Store current byte since we need its last bits
+    Uint8 current = buf[x];
+    buf[x] >>= numBits;
+    // If there is a carry over from the last handled byte, add it
+    buf[x] |= carryOver;
+    // Compute carry over bits for next byte handled
+    carryOver = current << (8-numBits); // bits we need to shift over to start (left hand side) of buf[x+1]
+  }
+}
+
+
+void DcmSegUtils::shiftLeft(Uint8* buf,
+                            size_t bufLen,
+                            Uint8 numBits)
+{
+  if (numBits > 7)
+  {
+    DCMSEG_ERROR("Invalid input data: shiftLeft() can only shift 0-7 bits");
+    return;
+  }
+  for (size_t x = 0; x < bufLen-1; x++)
+  {
+    // Shift current byte
+    buf[x] = buf[x] << numBits;
+    // isolate portion of next byte that must be shifted into current byte
+    Uint8 next = (buf[x+1] >> (8-numBits));
+    // Shift current byte
+    buf[x] |= next;
+  }
+  // Shift last byte manually
+  buf[bufLen-1] <<= numBits;
+}
+
+
+void DcmSegUtils::debugDumpBin(Uint8* buffer,
+                               size_t length,
+                               const char* what)
+{
+  for (size_t n=0; n<length; n++)
+  {
+    DCMSEG_DEBUG(what << " #" << n << ": " << (size_t)(buffer[n]) << ", bytepos " << (size_t)(&(buffer[n])) << " (" << debugByte2Bin((buffer[n])) << ")");
+  }
+  DCMSEG_DEBUG("");
+}
+
+
+OFString DcmSegUtils::debugByte2Bin(Uint8 b)
+{
+  OFString result("",8);
+  for (int i = 7; i >= 0; i--)
+  {
+    result[i]= (b & 1) + '0';
+
+    b >>= 1;
+  }
+  return result;
 }
