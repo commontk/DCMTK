@@ -829,6 +829,13 @@ FUNCTION(INSPECT_FUNDAMENTAL_ARITHMETIC_TYPES)
       SET(ARITH_H_FILE "${ANDROID_TEMPORARY_FILES_LOCATION}/arith.h")
     ENDIF()
   ENDIF(CMAKE_CROSSCOMPILING)
+  # To avoid a systematic re-compilation of DCMTK each time the `arith` program is executed,
+  # we defined here a suffix, and then call 'configure_file' to copy the file into its
+  # final location only if needed.
+  SET(ARITH_H_FILE_SUFFIX "")
+  IF(NOT CMAKE_CROSSCOMPILING)
+    SET(ARITH_H_FILE_SUFFIX ".generated")
+  ENDIF(NOT CMAKE_CROSSCOMPILING)
   DCMTK_TRY_RUN(
     RESULT COMPILED
     ${DCMTK_BINARY_DIR}/CMakeTmp/Arith
@@ -836,8 +843,14 @@ FUNCTION(INSPECT_FUNDAMENTAL_ARITHMETIC_TYPES)
     COMPILE_DEFINITIONS -I"${DCMTK_BINARY_DIR}/config/include" -I"${DCMTK_SOURCE_DIR}/ofstd/include" -I"${DCMTK_SOURCE_DIR}/ofstd/libsrc"
     RUN_OUTPUT_VARIABLE OUTPUT
     COMPILE_OUTPUT_VARIABLE CERR
-    ARGS \"${ARITH_H_FILE}\"
+    ARGS \"${ARITH_H_FILE}${ARITH_H_FILE_SUFFIX}\"
   )
+  IF(NOT ARITH_H_FILE_SUFFIX STREQUAL "")
+    CONFIGURE_FILE(
+      ${ARITH_H_FILE}${ARITH_H_FILE_SUFFIX}
+      ${ARITH_H_FILE}
+      COPYONLY)
+  ENDIF(NOT ARITH_H_FILE_SUFFIX STREQUAL "")
   IF(COMPILED)
     IF(NOT RESULT)
       MESSAGE(STATUS "${OUTPUT}")
