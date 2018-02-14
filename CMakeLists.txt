@@ -13,6 +13,11 @@ if(POLICY CMP0017)
     cmake_policy(SET CMP0017 NEW)
 endif()
 
+# Ensures that try_compile tests honnor variables like CMAKE_CXX_STANDARD
+IF(POLICY CMP0067)
+    CMAKE_POLICY(SET CMP0067 NEW)
+ENDIF()
+
 # Check the build system
 include(CMake/dcmtkPrepare.cmake NO_POLICY_SCOPE)
 
