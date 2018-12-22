@@ -1,17 +1,42 @@
+# Minimum CMake version required
+cmake_minimum_required(VERSION 2.8.5 FATAL_ERROR)
+  
+# As of 2018-12-26 DCMTK has been validated to build with cmake version 3.13.2 new policies. 
+# Set and use the newest cmake policies that are validated to work 
+set(DCMTK_MAX_VALIDATED_CMAKE_VERSION "3.13.2") 
+if("${CMAKE_MAJOR_VERSION}" LESS 3) # Cmake version <3.7 does not understand the VERSION_LESS_EQUAL operator
+  set(DCMTK_CMAKE_POLICY_VERSION "${CMAKE_VERSION}") 
+elseif(("${CMAKE_MAJOR_VERSION}" EQUAL 3 AND "${CMAKE_MINOR_VERSION}" GREATER 6) OR ("${CMAKE_MAJOR_VERSION}" GREATER 3))
+  if("${CMAKE_VERSION}" VERSION_LESS_EQUAL "${DCMTK_MAX_VALIDATED_CMAKE_VERSION}") 
+    set(DCMTK_CMAKE_POLICY_VERSION "${CMAKE_VERSION}") 
+  else() 
+    set(DCMTK_CMAKE_POLICY_VERSION "${DCMTK_MAX_VALIDATED_CMAKE_VERSION}") 
+  endif() 
+endif()
+cmake_policy(VERSION ${DCMTK_CMAKE_POLICY_VERSION})
+
+
+if(CMAKE_VERSION_MAJOR GREATER 3  AND CMAKE_VERSION_MINOR GREATER 3)
+  ##  Set the default language standard
+  if(NOT CMAKE_CXX_STANDARD)
+    set(CMAKE_CXX_STANDARD 98)
+  endif()
+  if(NOT CMAKE_CXX_STANDARD_REQUIRED)
+    set(CMAKE_CXX_STANDARD_REQUIRED ON)
+  endif()
+  if(NOT CMAKE_CXX_EXTENSIONS)
+    set(CMAKE_CXX_EXTENSIONS OFF)
+  endif()
+  # Supported values are ``98``, ``11``, ``14``, ``17``, and ``20``.
+  set(VALID_CXX_STANDARDS "98" "11" "14" "17")
+  if(NOT CMAKE_CXX_STANDARD IN_LIST VALID_CXX_STANDARDS )
+     message(FATAL_ERROR "CMAKE_CXX_STANDARD:STRING=${CMAKE_CXX_STANDARD} is in the valid standards list [${VALID_CXX_STANDARDS}].")
+  endif()
+endif()
+
+
 # Declare project
 project(DCMTK)
-
-# Minimum CMake version required
-cmake_minimum_required(VERSION 2.8.5)
-
-# Disables a warning emitted by CMake 3.7.2. The same setting is performed
-# again in CMake/dcmtkPrepare.cmake (included below), but the warning is still
-# emitted if it is not set here (it only goes away if the policy is set in
-# both files).
-# We do not entirely understand this behavior, perhaps it is a bug in CMake?
-if(POLICY CMP0017)
-    cmake_policy(SET CMP0017 NEW)
-endif()
 
 # Check the build system
 include(CMake/dcmtkPrepare.cmake NO_POLICY_SCOPE)
