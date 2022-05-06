@@ -1,6 +1,6 @@
 /*
  *
- *  Copyright (C) 2013-2017, OFFIS e.V.
+ *  Copyright (C) 2013-2022, OFFIS e.V.
  *  All rights reserved.  See COPYRIGHT file for details.
  *
  *  This software and supporting documentation were developed by
@@ -423,6 +423,7 @@ OFCondition DcmStorageSCP::generateDirAndFilename(OFString &filename,
                     generatedFileName = tmpString;
                     OFSTRINGSTREAM_FREESTR(tmpString);
                     // combine the generated file name with the directory name
+                    OFStandard::sanitizeFilename(generatedFileName);
                     OFStandard::combineDirAndFilename(filename, directoryName, generatedFileName);
                 }
                 break;
@@ -439,6 +440,7 @@ OFCondition DcmStorageSCP::generateDirAndFilename(OFString &filename,
                 generatedFileName = tmpString;
                 OFSTRINGSTREAM_FREESTR(tmpString);
                 // combine the generated file name with the directory name
+                OFStandard::sanitizeFilename(generatedFileName);
                 OFStandard::combineDirAndFilename(filename, directoryName, generatedFileName);
                 break;
             }
@@ -467,6 +469,7 @@ OFCondition DcmStorageSCP::generateDirAndFilename(OFString &filename,
                     generatedFileName = tmpString;
                     OFSTRINGSTREAM_FREESTR(tmpString);
                     // combine the generated file name
+                    OFStandard::sanitizeFilename(generatedFileName);
                     OFStandard::combineDirAndFilename(filename, directoryName, generatedFileName);
                 } else
                     status = EC_CouldNotGenerateFilename;

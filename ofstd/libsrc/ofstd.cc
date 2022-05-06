@@ -1,6 +1,6 @@
 /*
  *
- *  Copyright (C) 2001-2020, OFFIS e.V.
+ *  Copyright (C) 2001-2022, OFFIS e.V.
  *  All rights reserved.  See COPYRIGHT file for details.
  *
  *  This software and supporting documentation were developed by
@@ -3136,6 +3136,39 @@ OFerror_code OFStandard::getLastNetworkErrorCode()
     return OFerror_code( errno, OFsystem_category() );
 #endif
 }
+
+
+void OFStandard::sanitizeFilename(OFString& fname)
+{
+  size_t len = fname.length();
+  for (size_t i=0; i<len; ++i)
+  {
+#ifdef _WIN32
+        if ((fname[i] == PATH_SEPARATOR)||(fname[i] == '/')) fname[i] = '_';
+#else
+        if (fname[i] == PATH_SEPARATOR) fname[i] = '_';
+#endif
+  }
+}
+
+
+void OFStandard::sanitizeFilename(char *fname)
+{
+  if (fname)
+  {
+    char *c = fname;
+    while (*c)
+    {
+#ifdef _WIN32
+      if ((*c == PATH_SEPARATOR)||(*c == '/')) *c = '_';
+#else
+      if (*c == PATH_SEPARATOR) *c = '_';
+#endif
+      ++c;
+    }
+  }
+}
+
 
 // black magic:
 // The C++ standard says that std::in_place should not be called as a function,
