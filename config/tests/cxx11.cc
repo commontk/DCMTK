@@ -41,6 +41,14 @@
 
 #error "This is not a C++ compiler"
 
+#elif defined(_MSVC_LANG)
+
+# if _MSVC_LANG < 201103L
+
+#error "This is not a C++11 compiler"
+
+# endif
+
 #elif __cplusplus < 201103L
 
 #error "This is not a C++11 compiler"

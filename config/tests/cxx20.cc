@@ -47,6 +47,14 @@
 
 #error "This is not a C++ compiler"
 
+#elif defined(_MSVC_LANG)
+
+# if _MSVC_LANG < 202002L
+
+#error "This is not a C++20 compiler"
+
+# endif
+
 #elif __cplusplus < 202002L
 
 #error "This is not a C++20 compiler"

@@ -183,14 +183,14 @@ OFTEST(ofstd_std_system_error)
 
 OFTEST(ofstd_std_tuple)
 {
-#if defined(__cplusplus) && (__cplusplus >= 201103L)
+#if defined(__cplusplus) && (__cplusplus >= 201103L || defined(_MSVC_LANG) && _MSVC_LANG >= 201103L)
     auto tuple = OFmake_tuple(1, "TEST");
 #else
     OFtuple<int, const char *> tuple = OFmake_tuple(1, "TEST");
 #endif
     OFCHECK(OFget<0>(tuple) == 1);
 
-#if defined(__cplusplus) && (__cplusplus >= 201103L)
+#if defined(__cplusplus) && (__cplusplus >= 201103L || defined(_MSVC_LANG) && _MSVC_LANG >= 201103L)
     // decltype is C++11
     constexpr bool tuple_size_is_two = OFtuple_size<decltype(tuple)>::value == 2;
     OFCHECK(tuple_size_is_two);
